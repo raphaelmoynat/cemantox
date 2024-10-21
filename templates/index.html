@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu Cemantix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card p-4">
+            <h1 class="text-center">Cemantix</h1>
+            <form method="POST" class="my-4">
+                <div class="mb-3">
+                    <label for="word" class="form-label">Votre proposition :</label>
+                    <input type="text" id="word" name="word" class="form-control" required placeholder="Entrez votre mot">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                </div>
+            </form>
+
+            {% if result_message %}
+                <div class="text-center my-4 fs-4 text-primary">
+                    {{ result_message }}
+                </div>
+            {% endif %}
+            {% if guessed_words %}
+                <h3 class="text-center">Propositions précédentes :</h3>
+                <ul class="list-group mb-3">
+                    {% for word, similarity in guessed_words %}
+                        <li class="list-group-item">{{ word }} => {{ (similarity * 100) | round(2) }}%</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+
+            {% if result_message == "Vous avez gagné !" %}
+                <div class="text-center">
+                    <a href="/reset" class="btn btn-success">Rejouer</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
